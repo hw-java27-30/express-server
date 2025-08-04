@@ -23,7 +23,7 @@ export  class UserServiceEmbeddedImpl implements UserService, UserFilePersistenc
     }
 
     getUserById(id: number): User {
-       const user = this.users.find(item => item.id === id);
+       const user = this.users.find(item => item.id == id);
        if(!user) throw new HttpError(404, "User not found");
         return user;
     }

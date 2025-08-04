@@ -1,10 +1,9 @@
 import {UserService} from "../services/UserService.ts";
 import {User} from "../model/userTypes.ts";
 import {Request, Response} from "express";
-import {baseUrl} from "../config/userServerConfig.ts";
 import {myLogger} from "../utils/logger.ts";
 import {HttpError} from "../errorHandler/HttpError.js";
-import {UserDtoSchema} from "../joiSchemas/userShemas.js";
+import {UserDtoSchema, UserQuerySchemaId} from "../joiSchemas/userShemas.js";
 
 export class UserController {
     constructor(private userService: UserService) {
@@ -31,13 +30,12 @@ export class UserController {
     }
 
     removeUser(req: Request, res: Response) {
-        const {id} = req.query
-
-
-        if (!id || Number.isNaN(+id)) {
-            myLogger.log('Wrong params!')
-            throw new HttpError(400, 'Bad request: wrong params!')
+        const {value, error} = UserQuerySchemaId.validate(req.query);
+        if (error) {
+            myLogger.log('Wrong params!');
+            throw new HttpError(400, 'Bad request: wrong query params!')
         }
+        const {id} = value
         const removed = this.userService.removeUser(+id);
         res.status(200).json(removed);
         myLogger.log(`User with id ${id} was removed from DB`);
@@ -53,14 +51,13 @@ export class UserController {
     }
 
     getUserById(req: Request, res: Response) {
-        const url = new URL(req.url!, baseUrl);
-        const param = url.searchParams.get('id');
-        if (!param || Number.isNaN(parseInt(param))) {
+        const {value, error} = UserQuerySchemaId.validate(req.query);
+        const {id} = value
+        if (error) {
             myLogger.log('Wrong params!');
-            throw new HttpError(400, 'Bad request: wrong params!')
-
+            throw new HttpError(400, 'Bad request: wrong query params!')
         }
-        const user = this.userService.getUserById(parseInt(param!));
+        const user = this.userService.getUserById(parseInt(id));
         res.status(200).json(user);
         myLogger.log(`User responsed`);
     }

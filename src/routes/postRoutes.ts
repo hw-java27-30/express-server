@@ -3,8 +3,9 @@ import * as controller from '../controllers/postController.js'
 import {Post} from "../model/postTypes.js";
 import {myLogger} from "../utils/logger.ts";
 import asyncHandler from "express-async-handler";
-import {PostDtoSchema} from "../joiSchemas/postShemas.js";
+import {PostDtoSchema, PostQuerySchemaId} from "../joiSchemas/postShemas.js";
 import {HttpError} from "../errorHandler/HttpError.js";
+import {UserQuerySchemaUserName} from "../joiSchemas/userShemas.js";
 
 export const postRouter = express.Router();
 
@@ -22,9 +23,13 @@ postRouter.get('/user/:userId', asyncHandler((req: Request, res: Response) => {
 }))
 
 postRouter.delete('/post/:id', asyncHandler((req: Request, res: Response) => {
-        const id = req.params.id;
-        if (!id)
-            throw new HttpError(400, "Bad request");
+    const {error} = PostQuerySchemaId.validate(req.params);
+    console.log(error)
+    if (error) {
+        myLogger.log('Wrong params!');
+        throw new HttpError(400, 'Bad request: wrong query params!')
+    }
+
         controller.removePost(req, res);
     }
 ))
@@ -52,15 +57,19 @@ postRouter.get('/', asyncHandler((req: Request, res: Response) => {
 }))
 //http://localhost:3005/api/posts/post/2/user/5
 postRouter.get('/post/:id', asyncHandler((req: Request, res: Response) => {
-    const {id} = req.params;
-    if (!id)
-        throw new HttpError(404, 'Post not found')
+    const {error} = PostQuerySchemaId.validate(req.params);
+    console.log(error)
+    if (error) {
+        myLogger.log('Wrong params!');
+        throw new HttpError(400, 'Bad request: wrong query params!')
+    }
     controller.getPostById(req, res);
 }))
 
 postRouter.get('/user', asyncHandler((req: Request, res: Response) => {
-    const {userName} = req.query
-    if (!userName || typeof userName !== "string")
+    const {error} = UserQuerySchemaUserName.validate(req.query)
+
+    if (error)
         throw new HttpError(400, "Bad request: userName required");
     controller.getUserPostsByName(req, res);
 }))

@@ -2,6 +2,8 @@ import {Post} from "../model/postTypes.js";
 import {postService, service} from "../server.ts";
 import {Request, Response} from "express";
 import {HttpError} from "../errorHandler/HttpError.js";
+import {PostDtoSchema, PostQuerySchemaId, PostQuerySchemaUserId} from "../joiSchemas/postShemas.js";
+import {myLogger} from "../utils/logger.js";
 
 
 export function getUserPostsByName(req: Request, res: Response) {
@@ -14,32 +16,42 @@ export function getUserPostsByName(req: Request, res: Response) {
 }
 
 export function getUserPost(req: Request, res: Response) {
-    const uId = parseInt(req.params.userId);
-    if (!uId) throw new HttpError(400, "Bad user Id in request")
-    res.json(postService.getAllUserPosts(uId));
+    const {value, error} = PostQuerySchemaUserId.validate(req.params)
+    if (error) {
+        myLogger.log('Wrong params!');
+        throw new HttpError(400, "Bad user Id in request")
+    }
+    console.log(value)
+    const {userId} = value
+    res.json(postService.getAllUserPosts(+userId));
 }
 
 export function updatePost(req: Request, res: Response) {
-    const post = req.body;
-    if (!service.getUserById(post.userId))
+    const {value, error} = PostDtoSchema.validate(req.body)
+    console.log(value)
+    if (error) {
+        throw new HttpError(400, 'Bad request: wrong params!')
+    }
+    if (!service.getUserById(+value.userId))
         throw new HttpError(404, "User not found")
-    const result = postService.updatePost(post);
+    const result = postService.updatePost(value);
     if (result)
         res.send("Post successfully updated")
     else throw new HttpError(404, "Post not found")
 }
 
 export function removePost(req: Request, res: Response) {
-    const postId = parseInt(req.params.id);
-    const result = postService.removePost(postId);
+    const {value} = PostQuerySchemaId.validate(req.params);
+    const {id} = value
+    const result = postService.removePost(+id);
     res.json(result)
 }
 
 export function getPostById(req: Request, res: Response) {
-    const postId = parseInt(req.params.id);
-    if (!postId) throw new HttpError(400, "Bad ID in request")
+    const {value} = PostQuerySchemaId.validate(req.params);
+    const {id} = value
     //   try{
-    res.json(postService.getPost(postId));
+    res.json(postService.getPost(+id));
     // } catch (e) {
     //     res.status(404).send("Post not found")
     // }
