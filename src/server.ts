@@ -12,7 +12,7 @@ app.listen(PORT, () => console.log(`Server runs at http://localhost:${PORT}`));
 
 
 //==========================Router=======================================
-    app.use('api', libRouter)
+    app.use('/api', libRouter)
     app.use((_: Request, res: Response) => {
         res.status(404).send('Not Found');
     })
