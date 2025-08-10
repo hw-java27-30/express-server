@@ -23,7 +23,7 @@
 					"raw": "{\r\n    \"id\": 35,\r\n    \"userName\": \"Bob\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3500/api/books?genre=romantic",
+					"raw": "http://localhost:3500/api/books/genre?genre=dystopia",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -31,12 +31,13 @@
 					"port": "3500",
 					"path": [
 						"api",
-						"books"
+						"books",
+						"genre"
 					],
 					"query": [
 						{
 							"key": "genre",
-							"value": "romantic"
+							"value": "dystopia"
 						}
 					]
 				}
@@ -50,7 +51,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"The Time Machine\",\r\n  \"author\": \"H. G. Wells\",\r\n  \"genre\": \"sci-fi\",\r\n  \"quantity\": 12\r\n}",
+					"raw": "{\r\n  \"title\": \"1984\",\r\n  \"author\": \"George Orwell\",\r\n  \"genre\": \"dystopia\",\r\n  \"quantity\": 7\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +112,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3500/api/books/a4b37601-f84c-41dd-9fa5-d1eae6343798",
+					"raw": "http://localhost:3500/api/books?id=575bf163-101f-4b4f-bae8-eb5af6e260d6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,8 +120,13 @@
 					"port": "3500",
 					"path": [
 						"api",
-						"books",
-						"a4b37601-f84c-41dd-9fa5-d1eae6343798"
+						"books"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "575bf163-101f-4b4f-bae8-eb5af6e260d6"
+						}
 					]
 				}
 			},
@@ -128,18 +134,15 @@
 		},
 		{
 			"name": "pickUpBook",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3500/api/books/pickup?id=90ee9fa6-825a-4d09-a532-a726aa02e47b&reader=Egor_Grushin",
+					"raw": "http://localhost:3500/api/books/pickup?id=575bf163-101f-4b4f-bae8-eb5af6e260d6&reader=Egor Grushin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -153,11 +156,11 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "90ee9fa6-825a-4d09-a532-a726aa02e47b"
+							"value": "575bf163-101f-4b4f-bae8-eb5af6e260d6"
 						},
 						{
 							"key": "reader",
-							"value": "Egor_Grushin"
+							"value": "Egor Grushin"
 						}
 					]
 				}
@@ -167,8 +170,31 @@
 		{
 			"name": "returnBook",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/return?id=575bf163-101f-4b4f-bae8-eb5af6e260d6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"return"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "575bf163-101f-4b4f-bae8-eb5af6e260d6"
+						}
+					]
+				}
 			},
 			"response": []
 		}
