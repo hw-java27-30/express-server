@@ -8,6 +8,12 @@ export function getGenre(genre: string) {
     else return bookGenre;
 }
 
+export function getStatus (status: string) {
+    const bookStatus = Object.values(BookStatus).find(v => v === status);
+    if(!bookStatus) throw  new HttpError(400, "Wrong status")
+    else return bookStatus;
+}
+
 export const convertBookDtoToBook = (dto:BookDto) => {
     return {
         id: uuidv4(),

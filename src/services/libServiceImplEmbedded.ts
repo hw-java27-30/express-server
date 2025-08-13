@@ -6,38 +6,38 @@ import {HttpError} from "../errorHandler/HttpError.js";
 export class LibServiceImplEmbedded implements libService{
     private books: Book[] = [];
 
-    addBook(book: Book): boolean {
+    async addBook(book: Book): Promise<boolean> {
         console.log("book")
         const index = this.books.findIndex(item => item.id === book.id )
         if(index === -1) {
             this.books.push(book);
-            return true;
+            return new Promise(resolve => resolve(true));
         }
-        return false;
+        return Promise.resolve(false);
     }
 
-    getAllBooks(): Book[] {
+    async getAllBooks(): Promise<Book[]> {
         return [...this.books];
     }
 
-    getBooksByGenre(genre: BookGenres): Book[] {
+    async getBooksByGenre(genre: BookGenres): Promise<Book[]> {
         return this.books.filter(item => item.genre === genre);
     }
 
-    pickUpBook(id: string, reader: string): void {
+    async pickUpBook(id: string, reader: string): Promise<void> {
         const book = this.getBookById(id);
         if(book.status !== BookStatus.ON_STOCK) throw new HttpError(409, "No this book on stock")
         book.status = BookStatus.ON_HAND
         book.pickList.push({pick_date: new Date().toDateString(), reader: reader, return_date: null});
     }
 
-    removeBook(id: string): Book {
+    async removeBook(id: string): Promise<Book> {
         const book = this.getBookById(id);
         this.books = this.books.filter(b => b.id !== id);
         return book;
     }
 
-    returnBook(id: string): void {
+    async returnBook(id: string): Promise<void> {
         const book = this.getBookById(id);
         if(book.status !== BookStatus.ON_HAND) throw new HttpError(409, "This book is on stock")
         book.status=BookStatus.ON_STOCK;
