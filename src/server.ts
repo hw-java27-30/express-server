@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
-import {PORT} from "./config/libConfig.js";
-import {libRouter} from "./routes/libRouter.js";
+import {PORT} from "./config/mflixConfig.js";
+import {mflixRouter} from "./routes/mflixRouter.js";
 import {errorHandler} from "./errorHandler/errorHandler.js";
 import morgan from "morgan";
 import * as fs from "node:fs";
@@ -16,7 +16,7 @@ const logStream = fs.createWriteStream("access.log", { flags: "a" });
 
 
 //==========================Router=======================================
-    app.use('/api', libRouter)
+    app.use('/api', mflixRouter)
     app.use((_: Request, res: Response) => {
         res.status(404).send('Not Found');
     })
