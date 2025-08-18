@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "678ccc38-8f5d-486f-a169-351c236a4442",
-		"name": "library-server",
+		"name": "library-server-sql",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "45450828",
 		"_collection_link": "https://egor-3487208.postman.co/workspace/Java-27-30~7d9c126e-026a-41e9-b9a2-54916c6c4bd6/collection/45450828-678ccc38-8f5d-486f-a169-351c236a4442?action=share&source=collection_link&creator=45450828"
@@ -112,7 +112,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3500/api/books?id=575bf163-101f-4b4f-bae8-eb5af6e260d6",
+					"raw": "http://localhost:3500/api/books?id=cd3e7c0e-c8a6-4c78-bce4-ab46b25de608",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,7 +125,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "575bf163-101f-4b4f-bae8-eb5af6e260d6"
+							"value": "cd3e7c0e-c8a6-4c78-bce4-ab46b25de608"
 						}
 					]
 				}
@@ -142,7 +142,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3500/api/books/pickup?id=575bf163-101f-4b4f-bae8-eb5af6e260d6&reader=Egor Grushin",
+					"raw": "http://localhost:3500/api/books/pickup?id=cd3e7c0e-c8a6-4c78-bce4-ab46b25de608&reader=Egor Grushin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +156,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "575bf163-101f-4b4f-bae8-eb5af6e260d6"
+							"value": "cd3e7c0e-c8a6-4c78-bce4-ab46b25de608"
 						},
 						{
 							"key": "reader",

@@ -12,10 +12,7 @@ export const launchServer = async () => {
     dotenv.config();
     console.log(process.env);
     const app = express();
-    mongoose.connect(db).then(() => {
-        console.log("Connected to MongoDB");
-    })
-    app.listen(process.env["PORT "], () => console.log(`Server runs at http://localhost:${process.env["PORT "]}`));
+    app.listen(process.env.PORT, () => console.log(`Server runs at http://localhost:${process.env.PORT}`));
     const logStream = fs.createWriteStream("access.log", {flags: "a"});
 //==========================Middleware===================================
     app.use(express.json());

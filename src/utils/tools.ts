@@ -1,4 +1,4 @@
-import {BookDto, BookGenres, BookStatus, PickRecord} from "../model/Book.ts";
+import {BookDto, BookGenres, BookStatus, ReaderDto} from "../model/Book.ts";
 import { v4 as uuidv4 } from 'uuid';
 import {HttpError} from "../errorHandler/HttpError.js";
 
@@ -6,6 +6,13 @@ export function getGenre(genre: string) {
     const bookGenre = Object.values(BookGenres).find(v => v === genre);
     if(!bookGenre) throw  new HttpError(400, "Wrong genre")
     else return bookGenre;
+}
+
+export function getStatus(status: string) {
+    const bookStatus = Object.values(BookStatus).find(v => v === status);
+
+    if(!bookStatus) throw  new HttpError(400, "Wrong status")
+    else return bookStatus;
 }
 
 export const convertBookDtoToBook = (dto:BookDto) => {
@@ -16,5 +23,12 @@ export const convertBookDtoToBook = (dto:BookDto) => {
         genre: getGenre(dto.genre),
         status: BookStatus.ON_STOCK,
         pickList: []
+    }
+}
+
+export const convertReaderDtoToReader = (dto: string) => {
+    return {
+        id: uuidv4(),
+        name: dto,
     }
 }
