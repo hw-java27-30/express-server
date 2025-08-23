@@ -23,5 +23,4 @@ export const PATH_ROLES: Record<string, Roles[]> = {
     "GET/accounts/reader_id/": [Roles.USER, Roles.ADMIN],
     "DELETE/accounts/": [Roles.USER, Roles.ADMIN],
     "POST/accounts/": [Roles.GUEST],
-
 }
