@@ -1,38 +1,46 @@
 import {Request, Response} from 'express';
 import {Reader, ReaderDto} from "../model/Reader.js";
-import {convertReaderDtoToReader} from "../utils/tools.js";
+import {checkReaderId, convertReaderDtoToReader} from "../utils/tools.js";
 import {accountServiceMongo} from '../services/AccountServiceImplMongo.js'
-import {HttpError} from "../errorHandler/HttpError.js";
-import bcrypt from "bcryptjs";
+import Joi from "joi";
+import joi from "joi";
+
 
 export const removeAccount = async (req: Request, res: Response) => {
     const {id} = req.query;
-    if (!id) throw new HttpError(409, `Wrong query params`)
-    const deletedReader: Reader = await accountServiceMongo.removeAccount(parseInt(id as string))
-    if (!deletedReader) throw new HttpError(500, "something went wrong")
-    res.status(200).send(deletedReader)
-
-};
+    const _id = checkReaderId(id as string);
+    const account = await accountServiceMongo.removeAccount(_id);
+    res.json(account)
+}
 
 export const changePassword = async (req: Request, res: Response) => {
-    const {id, password} = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await accountServiceMongo.changePassword(id, hashedPassword);
-    res.status(200).send('password changed successfully')
+    const {id, oldPassword, newPassword} = req.body;
 
-};
+    const _id = checkReaderId(id);
+    await accountServiceMongo.changePassword(_id, oldPassword, newPassword);
+    res.send("Password changed")
+}
+export const updateInfo = async (req: Request, res: Response) => {
+    const {id, userName, email, birthdate} = req.body;
+    const _id = checkReaderId(id);
+    await accountServiceMongo.updateInfo(_id, userName, email, birthdate);
+    res.send("Info changed")
+}
 
+export const getAccountById = async (req: Request, res: Response) => {
+    const {id} = req.query;
+    try {
+        const _id = checkReaderId(id as string);
+        const account = await accountServiceMongo.getAccountById(_id);
+        res.json(account);
+    } catch (e) {
+        console.error(e);
+    }
+
+}
 export const addAccount = async (req: Request, res: Response) => {
     const body = req.body;
     const reader: Reader = convertReaderDtoToReader(body as ReaderDto);
-    await accountServiceMongo.addAccount(reader)
+    await accountServiceMongo.addAccount(reader);
     res.status(201).send();
-}
-
-export const getAccount = async (req: Request, res: Response) => {
-    const {id} = req.query;
-    if (!id) throw new HttpError(409, `Wrong query params`)
-    const showReader: Reader = await accountServiceMongo.getAccount(parseInt(id as string))
-    if (!showReader) throw new HttpError(500, "something went wrong")
-    res.status(200).send(showReader)
 }

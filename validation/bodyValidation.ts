@@ -19,7 +19,7 @@ export const bodyValidation = (schema: ObjectSchema) =>
         birthdate: joi.string().isoDate().required(),
     })
 
-    export const ChangePassDtoSchema = joi.object({
-        id: joi.number().positive().max(999999999).min(100000000).required(),
-        password: joi.string().alphanum().min(8).required(),
-    })
+    // export const ChangePassDtoSchema = joi.object({
+    //     id: joi.number().positive().max(999999999).min(100000000).required(),
+    //     password: joi.string().alphanum().min(8).required(),
+    // })

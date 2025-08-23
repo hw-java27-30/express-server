@@ -1,8 +1,9 @@
-import {BookDto, BookGenres, BookStatus, PickRecord} from "../model/Book.ts";
-import { v4 as uuidv4 } from 'uuid';
+import {BookDto, BookGenres, BookStatus} from "../model/Book.ts";
+import {v4 as uuidv4} from 'uuid';
 import {HttpError} from "../errorHandler/HttpError.js";
 import {Reader, ReaderDto} from "../model/Reader.js";
 import bcrypt from "bcryptjs";
+import {Roles} from "./libTypes.js";
 
 export function getGenre(genre: string) {
     const bookGenre = Object.values(BookGenres).find(v => v === genre);
@@ -10,8 +11,9 @@ export function getGenre(genre: string) {
     else return bookGenre;
 }
 
-export function getStatus (status: string) {
+export function getStatus(status: string) {
     const bookStatus = Object.values(BookStatus).find(v => v === status);
+
     if(!bookStatus) throw  new HttpError(400, "Wrong status")
     else return bookStatus;
 }
@@ -27,7 +29,7 @@ export const convertBookDtoToBook = (dto:BookDto) => {
     }
 }
 
-export const convertReaderDtoToReader = (dto: ReaderDto) : Reader => {
+export const convertReaderDtoToReader = (dto:ReaderDto):Reader => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(dto.password, salt);
 
@@ -37,5 +39,12 @@ export const convertReaderDtoToReader = (dto: ReaderDto) : Reader => {
         email: dto.email,
         birthdate: dto.birthdate,
         passHash: hash,
+        roles: [Roles.USER]
     }
+}
+export const checkReaderId = (id: string | undefined) => {
+    if (!id) throw new HttpError(400, "No ID in request");
+    const _id = parseInt(id as string);
+    if (!_id) throw new HttpError(400, "ID must be a number");
+    return _id;
 }

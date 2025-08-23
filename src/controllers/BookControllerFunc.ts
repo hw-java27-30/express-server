@@ -3,7 +3,7 @@ import {Response, Request} from "express";
 import {Book, BookDto} from "../model/Book.js";
 import {convertBookDtoToBook, getGenre, getStatus} from "../utils/tools.js";
 import {HttpError} from "../errorHandler/HttpError.js";
-import {LibServiceMongo as service} from "../services/libServiceImpMongo.js";
+import {libServiceMongo as service} from "../services/libServiceImpMongo.js";
 
 
 export const getBooksByGenre = async (req:Request, res:Response) => {

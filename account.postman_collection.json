@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 345797955,\r\n    \"userName\": \"Egor Grushin\",\r\n    \"email\": \"egormix1703@gmail.com\",\r\n    \"password\": \"123egor2209\",\r\n    \"birthdate\": \"2023-01-01T15:30:00Z\"\r\n}",
+					"raw": "{\r\n    \"id\": 111111111,\r\n    \"userName\": \"Egor Grushin\",\r\n    \"email\": \"egormix1703@gmail.com\",\r\n    \"password\": \"egor2209\",\r\n    \"birthdate\": \"2000-01-01\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,10 +39,25 @@
 		{
 			"name": "deleteAccount",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "egor2209",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3500/accounts/?id=345797955",
+					"raw": "http://localhost:3500/accounts/?id=111111111",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,7 +70,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "345797955"
+							"value": "111111111"
 						}
 					]
 				}
@@ -65,10 +80,25 @@
 		{
 			"name": "getAccount",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "egor2209",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3500/accounts/reader/?id=345797955",
+					"raw": "http://localhost:3500/accounts/reader_id/?id=111111111",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -76,13 +106,13 @@
 					"port": "3500",
 					"path": [
 						"accounts",
-						"reader",
+						"reader_id",
 						""
 					],
 					"query": [
 						{
 							"key": "id",
-							"value": "345797955"
+							"value": "111111111"
 						}
 					]
 				}
@@ -92,11 +122,26 @@
 		{
 			"name": "changePassword",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "egor2209",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 345797955,\r\n    \"password\": \"egor22091976\"\r\n}",
+					"raw": "{\r\n    \"id\": 111111111,\r\n    \"oldPassword\": \"egor2209\",\r\n    \"newPassword\": \"egor22091\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -104,7 +149,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3500/accounts/password",
+					"raw": "http://localhost:3500/accounts/updating/password",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -112,7 +157,53 @@
 					"port": "3500",
 					"path": [
 						"accounts",
+						"updating",
 						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateInfo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "egor2209",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 111111111,\r\n    \"userName\": \"Ivan Petrov\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"birthdate\": \"2010-03-13\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/accounts/updating/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"accounts",
+						"updating",
+						"info"
 					]
 				}
 			},
