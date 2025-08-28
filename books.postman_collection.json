@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "77a23412-d110-4d34-a3c5-15133ac026ad",
+		"name": "books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45450828",
+		"_collection_link": "https://egor-3487208.postman.co/workspace/Java-27-30~7d9c126e-026a-41e9-b9a2-54916c6c4bd6/collection/45450828-77a23412-d110-4d34-a3c5-15133ac026ad?action=share&source=collection_link&creator=45450828"
+	},
+	"item": [
+		{
+			"name": "getAllBooks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/books/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addBook",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "100000000",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "100000000",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"1984\",\r\n  \"author\": \"George Orwell\",\r\n  \"genre\": \"dystopia\",\r\n  \"quantity\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pickUpBook",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/pickup?id=16db141c-6544-45d5-bc1e-fd06b48c0f08",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"pickup"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "16db141c-6544-45d5-bc1e-fd06b48c0f08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "returnBook",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "111111111",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "111111111",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/return?id=16db141c-6544-45d5-bc1e-fd06b48c0f08",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"return"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "16db141c-6544-45d5-bc1e-fd06b48c0f08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "removeBookById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books?id=cd3e7c0e-c8a6-4c78-bce4-ab46b25de608",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cd3e7c0e-c8a6-4c78-bce4-ab46b25de608"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getInfo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "100000000",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "100000000",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/books/info?id=111111111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"info"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "111111111"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
