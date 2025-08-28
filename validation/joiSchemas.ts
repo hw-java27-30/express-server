@@ -20,3 +20,11 @@ export const ChangeInfoDtoSchema = Joi.object({
     email: joi.string().email().required(),
     birthdate: joi.string().isoDate().required(),
 })
+
+export const ReaderDtoSchema = joi.object({
+    id: joi.number().positive().max(999999999).min(100000000).required(),
+    userName: joi.string().min(1).required(),
+    email: joi.string().email().required(),
+    password: joi.string().alphanum().min(8).required(),
+    birthdate: joi.string().isoDate().required(),
+})

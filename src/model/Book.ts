@@ -14,6 +14,13 @@ export type Book = {
     pickList: PickRecord[]
 }
 
+export type BookForReader = {
+    id: string,
+    title:string,
+    author:string,
+    genre: BookGenres,
+}
+
 export enum BookGenres {
     "SCI_FI" = 'sci-fi',
     "ADVENTURE" = 'adventure',

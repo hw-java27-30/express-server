@@ -14,7 +14,7 @@ export const authorize = (arr: Record<string, Roles[]>) =>
         console.log(route, roles)
         if (roles?.some(r => arr[route].includes(r)))
             next();
-        else return next(new HttpError(403, ""))
+        else throw new HttpError(403, "")
     }
 
 export const PATH_ROLES: Record<string, Roles[]> = {
@@ -23,4 +23,14 @@ export const PATH_ROLES: Record<string, Roles[]> = {
     "GET/accounts/reader_id/": [Roles.USER, Roles.ADMIN],
     "DELETE/accounts/": [Roles.USER, Roles.ADMIN],
     "POST/accounts/": [Roles.GUEST],
+    "GET/api/books/": [Roles.GUEST, Roles.USER, Roles.ADMIN],
+    "POST/api/books/": [Roles.ADMIN],
+    "DELETE/api/books/": [Roles.ADMIN],
+    "PATCH/api/books/pickup": [Roles.USER],
+    "PATCH/api/books/return": [Roles.USER],
+    "GET/api/books/return": [Roles.USER],
+    "GET/api/books/genre": [Roles.USER, Roles.ADMIN, Roles.GUEST],
+    "GET/api/books/genre_status": [Roles.USER, Roles.ADMIN, Roles.GUEST],
+    "GET/api/books/info": [Roles.ADMIN],
+
 }

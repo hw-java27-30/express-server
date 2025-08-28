@@ -11,4 +11,5 @@ bookRouter.patch('/pickup',controller.pickUpBook);
 bookRouter.patch('/return',controller.returnBook);
 bookRouter.get('/genre', controller.getBooksByGenre);
 bookRouter.get('/genre_status', controller.getBooksByGenreAndStatus);
+bookRouter.get('/info', controller.infoBooksByReader);
 
